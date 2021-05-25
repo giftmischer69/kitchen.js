@@ -33,20 +33,22 @@ interface IAppState {
     path: string
 }
 
-export class Menu extends Component<{}, {}> {
+
+export class MainMenu extends Component<{}, {}> {
+    public state: IAppState = {
+        message: "temp",
+        path: "patterns"
+    }
+
+    public getPatterns = () => {
+        console.log("getPatterns called!")
+        eel.get_patterns()((message: string) => this.setState({message}))
+    }
+
     public render() {
         return (
-            <div id="menu-bar">
-                <ul className="main-menu">
-                    <li> FILE
-                        <ul>
-                            <li>NEW PROJECT</li>
-                            <li>SAVE PROJECT</li>
-                            <li>SAVE PROJECT AS...</li>
-                            <li>EXPORT...</li>
-                        </ul>
-                    </li>
-                </ul>
+            <div>
+                temp lul
             </div>
         )
     }
@@ -80,4 +82,4 @@ export class App extends Component<{}, {}> {
 }
 
 //export default App;
-export default Menu
+export default MainMenu

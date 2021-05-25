@@ -11,6 +11,8 @@ from pathlib import Path
 import eel  # type: ignore
 
 # Use latest version of Eel from parent directory
+from kitchen.daw import Daw
+
 sys.path.insert(1, "../../")
 
 
@@ -44,10 +46,23 @@ def pick_file(folder):
         return "{} is not a valid folder".format(folder)
 
 
-def start_eel(develop):
-    """Start Eel with either production or development configuration."""
+@eel.expose
+def get_patterns():
+    patterns = str(__daw.project.patterns)
+    print(f"RETURNING PATTERNS: {patterns}")
+    return patterns
 
-    if develop:
+
+__daw: Daw
+
+
+def start_eel(daw, cfg):
+    """Start Eel with either production or development configuration."""
+    global __daw
+    __daw = daw
+    print("RUN : 'npm start' in another terminal!")
+
+    if cfg["debug"]:
         directory = os.path.join(os.getcwd(), "src")
         app = None
         page = {"port": 3000}
@@ -79,13 +94,3 @@ def start_eel(develop):
             eel.start(page, mode="edge", **eel_kwargs)
         else:
             raise
-
-
-def main(debug):
-    if debug:
-        print("RUN : 'npm start' in another terminal!")
-    start_eel(develop=debug)
-
-
-if __name__ == "__main__":
-    start_eel(develop=True)

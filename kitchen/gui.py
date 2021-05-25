@@ -1,5 +1,5 @@
 from omegaconf import DictConfig
-from kitchen.eel_CRA import *
+from kitchen import eel_CRA
 from kitchen.daw import Daw
 
 
@@ -14,4 +14,4 @@ class Gui:
         self.height = height if height is not None else 720
 
     def run(self):
-        main(self.cfg["debug"])
+        eel_CRA.start_eel(self.daw, self.cfg)
