@@ -1,0 +1,10 @@
+eel[jinja2]
+bottle
+bottle-websocket
+future
+whichcraft
+pyinstaller
+sox
+melodia
+PyYAML
+hydra-core

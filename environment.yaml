@@ -1,0 +1,12 @@
+name: kitchen
+channels:
+  - conda-forge
+  - groakat
+dependencies:
+  - python=3.8
+  - nodejs
+  - ffmpeg
+  - sox
+  - pip
+  - pip:
+    - -r requirements.txt
