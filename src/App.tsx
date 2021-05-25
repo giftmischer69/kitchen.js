@@ -40,10 +40,10 @@ export class Menu extends Component<{}, {}> {
                 <ul className="main-menu">
                     <li> FILE
                         <ul>
-                            <li><a href="#">NEW PROJECT</a></li>
-                            <li><a href="#">SAVE PROJECT</a></li>
-                            <li><a href="#">SAVE PROJECT AS...</a></li>
-                            <li><a href="#">EXPORT...</a></li>
+                            <li>NEW PROJECT</li>
+                            <li>SAVE PROJECT</li>
+                            <li>SAVE PROJECT AS...</li>
+                            <li>EXPORT...</li>
                         </ul>
                     </li>
                 </ul>
@@ -79,4 +79,5 @@ export class App extends Component<{}, {}> {
     }
 }
 
-export default App;
+//export default App;
+export default Menu
