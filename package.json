@@ -245,6 +245,7 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.11.4",
+<<<<<<< HEAD
     "electron-debug": "^3.1.0",
     "electron-log": "^4.2.4",
     "electron-updater": "^4.3.4",
@@ -254,6 +255,17 @@
     "react-router-dom": "^5.2.0",
     "regenerator-runtime": "^0.13.5",
     "source-map-support": "^0.5.19"
+=======
+    "@types/jest": "24.0.14",
+    "@types/node": "12.0.8",
+    "@types/react": "16.8.20",
+    "@types/react-dom": "16.8.4",
+    "rc-menu": "^9.0.3",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-scripts": "^3.4.1",
+    "typescript": "3.4.5"
+>>>>>>> 9f8a3ba02cee3ca12a17ffc55ac44d95699a6a90
   },
   "devEngines": {
     "node": ">=10.x",
