@@ -1,0 +1,10 @@
+name: env-name
+channels:
+  - conda-forge
+  - groakat
+  - defaults
+dependencies:
+  - nodejs
+  - yarn
+  - ffmpeg
+  - sox

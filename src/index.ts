@@ -1,5 +1,8 @@
 import {Command, flags} from '@oclif/command'
 
+const config = require('config')
+const blessed = require('blessed')
+
 interface VstPlugin {
   name: string;
   dll_path: string;
@@ -96,55 +99,137 @@ class Project {
 
 // TODO: Memento class with decorateurs
 
-class Config {
-  debug: boolean
-
-  constructor(debug: boolean) {
-    this.debug = debug
-  }
-} // TODO
 // debug: boolean
 
+class Tui {
+  daw: Daw
+
+  screen: any
+
+  menu: any
+
+  showFileMenuDialog(): void {
+    const fileMenuDialog = blessed.listtable({
+      parent: this.menu,
+      width: '30%',
+      data: [
+        ['Animals',  'Foods',  'Times'],
+        ['Elephant', 'Apple',  '1:00am'],
+        ['Bird',     'Orange', '2:15pm'],
+        ['T-Rex',    'Taco',   '8:45am'],
+        ['Mouse',    'Cheese', '9:05am'],
+      ],
+      border: 'line',
+    })
+    fileMenuDialog.focus()
+    this.screen.append(fileMenuDialog)
+  }
+
+  constructor(daw: Daw) {
+    this.daw = daw
+    this.screen = blessed.screen({smartCSR: true})
+    this.menu = blessed.listbar({
+      top: 0,
+      left: 0,
+      right: 0,
+      height: 1,
+      width: 'shrink',
+      mouse: true,
+      keys: true,
+      autoCommandKeys: true,
+      // scrollable: true,
+
+      style: {
+        item: {
+          hover: {
+            bg: 'blue',
+          },
+        },
+        selected: {
+          bg: 'red',
+        },
+      },
+
+      commands: {
+        FILE: {
+          keys: ['f1'],
+          callback: () => {
+            this.showFileMenuDialog()
+          },
+        },
+        EDIT: {
+          keys: ['f2'],
+          callback: function () {
+            console.log('prev')
+          },
+        },
+      },
+    })
+    this.menu.focus()
+    this.screen.append(this.menu)
+  }
+
+  run(): void {
+    this.screen.key(['escape', 'q', 'C-c'], () => {
+      return process.exit(0)
+    })
+
+    this.screen.key(['enter', 'space'], () => {
+      console.log('ENTER/SPACE')
+    })
+
+    // Render the screen.
+    this.screen.render()
+  }
+}
+
 class Daw {
+  // https://www.npmjs.com/package/tone
+  // https://www.npmjs.com/package/sox-stream
+  // https://levelup.gitconnected.com/making-a-file-path-mapper-with-typescript-7b10ad4ff0c8
   plugins: VstPlugin[]
 
   project: Project
 
-  cfg: Config
+  cfg: any
 
-  constructor(cfg: Config) {
-    this.cfg = cfg
+  constructor() {
+    this.cfg = config.get('Daw')
     this.plugins = []
     this.project = new Project('default', 90)
   }
 }
 
 class KitchenJs extends Command {
-  static description = 'describe the command here'
+  static description = 'kitchen themed digital audio workstation'
 
   static flags = {
     // add --version flag to show CLI version
     version: flags.version({char: 'v'}),
     help: flags.help({char: 'h'}),
     // flag with a value (-n, --name=VALUE)
-    name: flags.string({char: 'n', description: 'name to print'}),
-    // flag with no value (-f, --force)
-    force: flags.boolean({char: 'f'}),
+    // name: flags.string({char: 'n', description: 'name to print'}),
+    // TODO: Kitchen Shell Script
+    tui: flags.boolean({char: 't'}),
   }
 
-  static args = [{name: 'file'}]
+  // static args = [{name: 'file'}]
 
   async run() {
-    const {args, flags} = this.parse(KitchenJs)
+    const {flags} = this.parse(KitchenJs)
 
-    const daw = new Daw(new Config(true))
+    const daw = new Daw()
 
-    this.log('DAW:' + JSON.stringify(daw))
+    if (daw.cfg.get('debug')) {
+      this.log('DAW:' + JSON.stringify(daw))
+    }
 
-    const name = flags.name ?? 'world'
-    this.log(`hello ${name} from .\\src\\index.ts`)
-    if (args.file && flags.force) {
-      this.log(`you input --force and --file: ${args.file}`)
+    // NOTE: TEMP!
+    flags.tui = true
+
+    if (flags.tui) {
+      const tui = new Tui(daw)
+      tui.run()
     }
   }
 }

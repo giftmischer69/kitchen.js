@@ -1,4 +1,4 @@
-kitchen-js
+kitchen.js
 ==========
 
 kitchen themed digital audio workstation

@@ -11,6 +11,8 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^3",
+    "blessed": "^0.1.81",
+    "config": "^3.3.6",
     "tslib": "^1"
   },
   "devDependencies": {
@@ -20,7 +22,7 @@
     "eslint-config-oclif": "^3.1",
     "eslint-config-oclif-typescript": "^0.1",
     "rimraf": "^3.0.2",
-    "ts-node": "^8",
+    "ts-node": "^8.10.2",
     "typescript": "^3.3"
   },
   "engines": {
