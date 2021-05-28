@@ -7,63 +7,96 @@ import './App.global.css';
 
 // debug: boolean
 const json = {
-  global: { tabEnableClose: false },
-  borders: [
-    {
-      type: 'border',
-      location: 'bottom',
-      size: 100,
-      children: [
-        {
-          type: 'tab',
-          name: 'Four',
-          component: 'text',
-        },
-      ],
-    },
-    {
-      type: 'border',
-      location: 'left',
-      size: 100,
-      children: [],
-    },
-  ],
+  global: {
+    tabEnableFloat: true,
+  },
   layout: {
     type: 'row',
-    weight: 100,
+    id: '#1',
     children: [
       {
         type: 'tabset',
-        weight: 50,
-        selected: 0,
+        id: 'NAVIGATION',
+        width: 250,
+        // name: 'Navigation',
+        enableDeleteWhenEmpty: false,
         children: [
           {
             type: 'tab',
-            name: 'One',
-            component: 'text',
+            id: '#2',
+            name: 'FX',
+            component: 'grid',
+            config: {
+              id: '1',
+            },
           },
         ],
+        active: true,
       },
       {
-        type: 'tabset',
-        weight: 50,
-        selected: 0,
+        type: 'row',
+        id: '#3',
+        weight: 34.81481481481482,
         children: [
           {
-            type: 'tab',
-            name: 'Two',
-            component: 'text',
+            type: 'tabset',
+            id: '#4',
+            weight: 30.84398976982096,
+            children: [
+              {
+                type: 'tab',
+                id: '#5',
+                name: 'Pattern',
+                component: 'grid',
+                config: {
+                  id: '2',
+                },
+              },
+            ],
           },
           {
-            type: 'tab',
-            name: 'Three',
-            component: 'text',
+            type: 'tabset',
+            id: '#6',
+            height: 250,
+            // name: 'Blotters',
+            enableDeleteWhenEmpty: false,
+            children: [
+              {
+                type: 'tab',
+                id: '#7',
+                name: 'FZ',
+                component: 'grid',
+                config: {
+                  id: '1',
+                },
+              },
+            ],
           },
         ],
       },
     ],
   },
+  borders: [
+    {
+      type: 'border',
+      location: 'bottom',
+      size: 100,
+      id: '#9',
+      children: [
+        {
+          id: '#8',
+          type: 'tab',
+          name: 'four',
+          component: 'text',
+        },
+      ],
+    },
+  ],
 };
+
+function ViewPattern() {
+  return <div>hello world</div>;
+}
 
 export default class Main extends React.Component {
   constructor(props: any) {
@@ -77,10 +110,15 @@ export default class Main extends React.Component {
   // @ts-ignore
   // eslint-disable-next-line consistent-return,class-methods-use-this
   factory(node: any) {
-    const component = node.getComponent();
-    if (component === 'text') {
-      return <div className="panel">Panel {node.getName()}</div>;
+    // const component = node.getComponent();
+
+    if (node.name === 'Pattern') {
+      return <div>PATTERN PANEL</div>;
     }
+
+    return <div className="panel">Panel {node.getName()}</div>;
+    // if (component === 'text') {
+    // }
   }
 
   render() {
