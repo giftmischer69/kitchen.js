@@ -2,6 +2,37 @@
  * @NOTE: Prepend a `~` to css file paths that are in your node_modules
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
+
+@import '~flexlayout-react/style/dark.css';
+
+body {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  margin: 0;
+}
+
+#container {
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  overflow: hidden;
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+}
+
+.panel {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*background-color: black;
+  border: 1px solid #555;*/
+  box-sizing: border-box;
+}
+
 /*
 body {
   position: relative;
